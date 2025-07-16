@@ -1,0 +1,323 @@
+/*---------ОБНУЛЯЮЩИЙ СТИЛЬ---------*/
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 0.875rem;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+}
+
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+
+/*---------ОСНОВА---------*/
+:root {
+    --base-size: 16px;
+    --progress-size: 200px;
+    --controls-width: 200px;
+    --primary-color: #e0e0e0;
+    --secondary-color: #6200ee;
+}
+
+@media (min-width: 768px) {
+    :root {
+        --base-size: 18px;
+        --progress-size: 250px;
+        --controls-width: 250px;
+    }
+}
+
+@media (min-width: 1024px) {
+    :root {
+        --base-size: 20px;
+        --progress-size: 300px;
+        --controls-width: 300px;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #ffffff;
+    padding: 20px;
+    font-size: var(--base-size);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    max-width: 400px;
+}
+
+/*---------PROGRESS BAR---------*/
+.progress-container {
+    position: relative;
+    width: var(--progress-size);
+    height: var(--progress-size);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.progress {
+    width: calc(var(--progress-size) * 0.8);
+    height: calc(var(--progress-size) * 0.8);
+    transform: rotate(-90deg);
+}
+
+.progress-background {
+    fill: none;
+    stroke: var(--primary-color);
+    stroke-width: 8;
+}
+
+.progress-arc {
+    fill: none;
+    stroke: var(--secondary-color);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 0.3s ease;
+}
+
+/*---------CONTROLS---------*/
+.controls {
+    display: flex;
+    flex-direction: column;
+    width: var(--controls-width);
+    gap: calc(var(--base-size) * 1.25);
+    padding: calc(var(--base-size) * 0.75);
+    align-self: center;
+}
+
+.control-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+label {
+    font-weight: bold;
+    color: #000000;
+    white-space: nowrap;
+    flex-shrink: 0;
+    min-width: 60px;
+}
+
+input[type="number"] {
+    width: calc(var(--base-size) * 2.5);
+    height: calc(var(--base-size) * 1.4);
+    font-size: calc(var(--base-size) * 0.9);
+    padding: 8px;
+    border: 1px solid #000000;
+    border-radius: 15px;
+    text-align: center;
+    flex-shrink: 0;
+    appearance: textfield; /* убираем стрелочки в Firefox */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* убираем стрелочки в Chrome, Safari, Edge */
+    margin: 0;
+}
+
+input[type="checkbox"] {
+    width: calc(var(--base-size) * 2.5);
+    height: calc(var(--base-size) * 1.4);
+    appearance: none;
+    background-color: var(--primary-color);
+    border-radius: 15px;
+    position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--secondary-color);
+}
+
+input[type="checkbox"]::after {
+    content: '';
+    position: absolute;
+    width: calc(var(--base-size) * 1.2);
+    height: calc(var(--base-size) * 1.2);
+    border-radius: 50%;
+    background-color: white;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+input[type="checkbox"]:checked::after {
+    transform: translateX(15px);
+}
+
+/*---------АНИМАЦИИ---------*/
+@keyframes rotate {
+    from {
+        transform: rotate(-90deg);
+    }
+    to {
+        transform: rotate(270deg);
+    }
+}
+
+.progress.animated {
+    animation: rotate 2s linear infinite;
+}
+
+.progress-container.hidden {
+    display: none;
+}
+
+/*---------МЕДИА-ЗАПРОСЫ---------*/
+@media (max-width: 480px) {
+    .controls {
+        gap: 8px;
+        max-width: 100%;
+    }
+    
+    .control-group {
+        gap: 8px;
+    }
+    
+    label {
+        min-width: 50px;
+        font-size: 0.9rem;
+    }
+    
+    input[type="number"] {
+        width: 36px;
+        height: 22px;
+        padding: 4px;
+    }
+    
+    input[type="checkbox"] {
+        width: 36px;
+        height: 22px;
+    }
+    
+    input[type="checkbox"]::after {
+        width: 18px;
+        height: 18px;
+    }
+    
+    input[type="checkbox"]:checked::after {
+        transform: translateX(14px);
+    }
+}
+
+@media (orientation: landscape) {
+    .container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        max-width: 800px;
+    }
+    
+    .progress-container {
+        width: 170px;
+        height: 170px;
+    }
+    
+    .progress {
+        width: 147px;
+        height: 147px;
+    }
+
+    .controls {
+        gap: 25px;
+    }
+
+    input[type="checkbox"]::after {
+        bottom: 2.5px;
+    }
+
+    input[type="checkbox"]:checked::after {
+        transform: translateX(17px);
+    }
+}
+
+/* Вменяемые размеры интерфейса для планшетов */
+@media (orientation: landscape) and (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        gap: calc(var(--base-size) * 3);
+        max-width: 90vw;
+    }
+    
+    .progress-container {
+        width: calc(var(--progress-size) * 1.1);
+        height: calc(var(--progress-size) * 1.1);
+    }
+    
+    .controls {
+        width: calc(var(--controls-width) * 1.2);
+    }
+}
+
+/* Вменяемые размеры интерфейса для iPad Pro */
+@media (min-width: 1024px) and (min-height: 1366px) {
+    :root {
+        --base-size: 22px;
+        --progress-size: 350px;
+    }
+    
+    .container {
+        max-width: 1200px;
+    }
+    
+    .controls {
+        gap: calc(var(--base-size) * 1.5);
+    }
+
+    input[type="checkbox"]:checked::after {
+        transform: translateX(22px);
+    }
+}
